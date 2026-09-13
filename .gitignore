@@ -1,9 +1,0 @@
-__pycache__/
-*.py[cod]
-*.pth
-*.pt
-outputs/
-data/MuReD/
-data/IDRiD/
-data/*.zip
-.ipynb_checkpoints/
