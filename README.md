@@ -1,12 +1,8 @@
-# SDCR-NET
-SDCR-Net: A Sparse--Dense Complementary Reinjection Network for Retinal Disease Classification
 # SDCR-Net
 
 PyTorch code for **SDCR-Net: A Sparse--Dense Complementary Reinjection Network for Retinal Disease Classification**.
 
 Sparse ViT-B/16 models global context; dense ConvNeXt-B extracts spatial details. **EGTP** prunes tokens by patch \(L_2\) energy before the Transformer. **GACR** reinjects full-grid convolutional features into the sparse sequence.
-
-Code: [https://github.com/Doctor-10086/SDCR-NET](https://github.com/Doctor-10086/SDCR-NET)
 
 ## Framework
 
