@@ -105,14 +105,11 @@ Checkpoint selection: MuReD uses `mAP + mF1 + AUC`; IDRiD uses accuracy. Writes 
 |---|---|---|
 | `--keep_ratio` | EGTP retention \(K\) | `0.1` |
 | `--reinject_scale` | GACR residual \(\alpha\) | `0.5` |
-| `--num_reinject` | number of reinjections; `0` = EGTP-only | `3` |
-| `--no_token_keep` | disable EGTP (GACR-only) | off |
 | `--fusion_weight` | ViT weight \(w\) | `0.5` |
 | `--vit_input_size` / `--image_size` | ViT / CNN size | `512` / `512` |
 | `--selector_type` | EGTP scoring | `l2` |
-| `--early_stop_patience` | early stopping; `0` disables | `10` (code); paper trains up to 60 epochs |
 
-`configs/mured.yaml` and `configs/idrid.yaml` match the table. Training is controlled by `train.py` CLI flags.
+Training is controlled by `train.py` CLI flags.
 
 ## File tree
 
