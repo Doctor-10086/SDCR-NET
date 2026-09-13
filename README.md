@@ -10,7 +10,7 @@ Code: [https://github.com/Doctor-10086/SDCR-NET](https://github.com/Doctor-10086
 
 ## Framework
 
-Place the paper figure at `figures/framework.png`:
+SDCR-Net:
 
 <p align="center">
   <img src="figures/framework.png" alt="Overview of SDCR-Net" width="100%">
@@ -19,42 +19,6 @@ Place the paper figure at `figures/framework.png`:
 - **(a)** Sparse–dense complementary encoding
 - **(b)** EGTP: parameter-free token selection before Transformer encoding
 - **(c)** GACR: full-grid convolutional reinjection with sequence length \(k+1\)
-
-## Method
-
-The same \(512\times 512\) image is fed to ViT and ConvNeXt. Classification loss is applied only to the fused logits.
-
-| Module | Full name | Role |
-|---|---|---|
-| **EGTP** | Energy-Guided Token Pruning | Scores patches on **unnormalized [0, 1]** pixels: \(s_j=\|\mathrm{vec}(p_j)\|_2\). Keep \(k=\max(1,\lfloor KN\rfloor)\) highest-energy patches and sort by raster index. CLS is always kept. No extra scoring parameters. |
-| **Sparse ViT** | ViT-B/16 | Self-attention on \(k+1\) tokens. \(N=1024\) at \(512\) input. |
-| **Dense CNN** | ConvNeXt-B | Full spatial map; not cropped by \(K\). |
-| **GACR** | Grid-Aligned Complementary Reinjection | Bilinear-align CNN to \(H_p\times W_p\), then \(1\times1\)–GELU–\(1\times1\) to \(D=768\). Q = sparse ViT (with CLS); K/V = full grid (including dropped cells). Q/K down-projected to \(256\), \(8\) heads. \(Z\leftarrow Z+\alpha W_o O\). Inserted after layers **4 / 6 / 8**. |
-| **Logit Fusion** | — | \(z=w z_{\mathrm{v}}+(1-w)z_{\mathrm{c}}\), \(w=0.5\). |
-
-Loss: **BCEWithLogits** on fused logits (MuReD multi-label; IDRiD one-hot multi-class).
-
-## Experimental settings
-
-As in the paper (NVIDIA RTX 3080 Ti):
-
-| Item | Value |
-|---|---|
-| Input size | \(512\times 512\) |
-| Backbones | ViT-B/16 + ConvNeXt-B |
-| Token retention \(K\) | \(0.1\) |
-| Reinjection strength \(\alpha\) | \(0.5\) |
-| GACR positions | after ViT layers 4, 6, 8 |
-| Fusion weight \(w\) | \(0.5\) |
-| Dropout | \(0.1\) |
-| Optimizer | AdamW |
-| Batch size | \(8\) |
-| Max epochs | \(60\) |
-| Learning rate | MuReD \(5\times 10^{-5}\), IDRiD \(3\times 10^{-5}\) |
-| Scheduler | cosine annealing |
-| Augmentation | same as CG-Tran (Yang et al., 2025): flip, rotate, blur, noise, color jitter, CoarseDropout |
-
-`num_reinject=0` is EGTP-only. `--no_token_keep` is GACR-only.
 
 ## Environment
 
