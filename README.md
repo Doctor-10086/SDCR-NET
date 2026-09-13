@@ -67,7 +67,7 @@ Left/right black borders are cropped, then the image is padded to a square.
 
 ## Training
 
-Defaults match the paper: \(K=0.1\), \(\alpha=0.5\), \(512\times 512\).
+Defaults match the paper: $\(K=0.1\)$, $\(\alpha=0.5\)$, $\(512\times 512\)$.
 
 ```bash
 bash scripts/train_mured.sh
